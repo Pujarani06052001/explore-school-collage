@@ -23,8 +23,8 @@ const Header = () => {
           <div className="nav-right">
             <Link className='content' href="/findpage">Find Schools</Link>
             <Link className='content' href="/Data-list">Adedd Schools List</Link>
-            <Link className='content' href="/Data-list">Sign-up</Link>
-            <Link className='content' href="/Data-list">Login</Link>
+            <Link className='content' href="#">Sign-up</Link>
+            <Link className='content' href="#">Login</Link>
 
           </div>
         </nav>
