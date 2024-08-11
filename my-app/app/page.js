@@ -1,95 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState } from 'react';
+import Data from './data'; 
+function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [filteredData, setFilteredData] = useState(Data); 
 
-export default function Home() {
+  const handleSearch = () => {
+    if (searchQuery.trim() === '') {
+      setFilteredData(Data); 
+    } else {
+      setFilteredData(
+        Data.filter(item =>
+          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
+    setShowResults(true); 
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+      <h1 className='school-search'>School Search</h1>
+      <p className='pragraph'>Find the right school for your child.</p>
+     
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <div className='search-box'>
+        <input
+          type="text"
+          placeholder="School Name"
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <button className="search-button" onClick={handleSearch}>Search</button>
+      </div>
+      <div className='main-option'>
+
+      <div className='Choose-option'>
+        <button>Choose City</button>
+        <button>Choose Board</button>
+        <button>Choose-Type</button>
+        <button>Hostle-Facility</button>
       </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
-    </main>
+
+      
+
+      <div className="container">
+        {filteredData.length > 0 ? (
+          filteredData.map((item) => (
+            <div key={item.id} className="card">
+              <img src={item.image} alt={item.title} className="card-image" />
+              <h2 className="card-title">{item.title}</h2>
+              <p className="card-detail">City: {item.city}</p>
+              <p className="card-detail">Place: {item.place}</p>
+              <p className="card-detail">Rating: {item.rating}</p>
+              <button className='apply'>Apply Now</button>
+
+            </div>
+
+          ))
+
+        ) : (
+          showResults && <p>No results found.</p>
+        )}
+      </div>
+    </>
   );
 }
+
+export default Home;
