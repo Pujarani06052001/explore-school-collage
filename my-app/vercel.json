@@ -1,0 +1,20 @@
+{
+    "rewrites": [
+        {
+            "source": "/Data-list",
+            "destination": "/Data-list"
+          },
+      {
+        "source": "/findpage",
+        "destination": "/findpage"
+      },
+      {
+        "source": "/addSchool",
+        "destination": "/addSchool"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/"
+      }
+    ]
+  }
